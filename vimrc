@@ -18,6 +18,7 @@ set incsearch
 set showcmd
 set novisualbell
 
+
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
@@ -26,7 +27,7 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-set colorcolumn=150
+set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 
@@ -36,12 +37,45 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'szw/vim-maximizer'
+Plug 'preservim/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
+filetype plugin indent on
+syntax on
+
+set fileformat=unix
+set encoding=utf-8
+set fileencoding=utf-8
+
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+let NERDTreeIgnore = ['\.pys$', '__pycache__']
+let NERDTreeNiminalUI = 1
+let g:nerdtree_open = 0
+function NERDTreeToggle()
+    NERDTreeTabsToggle
+    if g:nerdtree_open == 1
+        let g:nerdtree_open = 0
+    else
+        let g:nerdtree_open = 1
+        wincmd p
+    endif
+endfunction
+
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+autocmd VimEnter * call StartUp()
 
 if has("vms")
     set nobackup
@@ -49,10 +83,7 @@ else
     set backup
 endif
 
-
 let g:vimspector_enable_mappings = 'HUMAN'
-syntax enable
-filetype plugin indent on
 
 colorscheme gruvbox
 
