@@ -5,7 +5,7 @@ set relativenumber
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
-set expandtab
+set noexpandtab
 set smartindent
 set nu
 set nowrap
@@ -13,10 +13,20 @@ set smartcase
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
+set autoindent
 set undofile
 set incsearch
 set showcmd
 set novisualbell
+set wildmode=longest,list,full
+set splitright splitbelow
+set fileformat=unix                                                             
+set encoding=utf-8                                                              
+set fileencoding=utf-8
+set colorcolumn=110
+set background=dark
+set lbr
+set tw=500
 
 
 inoremap " ""<left>
@@ -27,7 +37,6 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -44,19 +53,12 @@ Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'szw/vim-maximizer'
 Plug 'preservim/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'WolfgangMehner/c-support'
 call plug#end()
 
-filetype plugin indent on
-syntax on
-
-set fileformat=unix
-set encoding=utf-8
-set fileencoding=utf-8
 
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -92,11 +94,10 @@ let g:vimspector_enable_mappings = 'HUMAN'
 
 colorscheme gruvbox
 
-set background=dark
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
 
-set encoding=utf8
-
-set lbr
-set tw=500
-
-map <leader>ss :setlocal spell!<cr>
+let g:C_UseTool_cmake = 'Yes'
+let g:C_UseTool_doxygen = 'Yes'
