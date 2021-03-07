@@ -7,6 +7,7 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set smartindent
+set nocompatible
 set nu
 set nowrap
 set smartcase
@@ -16,6 +17,8 @@ set undodir=~/.vim/undodir
 set autoindent
 set undofile
 set incsearch
+set path+=**
+set wildmenu
 set showcmd
 set novisualbell
 set wildmode=longest,list,full
@@ -76,6 +79,8 @@ function NERDTreeToggle()
         wincmd p
     endif
 endfunction
+
+command! MakeTags !ctags -R .
 
 function! StartUp()
     if 0 == argc()
